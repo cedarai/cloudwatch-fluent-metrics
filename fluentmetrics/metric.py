@@ -324,22 +324,22 @@ class FluentMetric(object):
                  MetricName=mn)
         return self
 
-    def log(self, **kwargs):
+    def log(self, expand=False, **kwargs):
         ts = kwargs.get('TimeStamp', arrow.utcnow()
                         .format('YYYY-MM-DD HH:mm:ss ZZ'))
         value = float(kwargs.get('Value'))
         unit = kwargs.get('Unit')
         md = []
-        for dimension in self.dimensions:
-            md.append({
-                'MetricName': kwargs.get('MetricName'),
-                'Dimensions': [dimension],
-                'Timestamp': ts,
-                'Value': value,
-                'Unit': unit,
-                'StorageResolution': self.storage_resolution,
-            }
-            )
+        if expand:
+            for dimension in self.dimensions:
+                md.append({
+                    'MetricName': kwargs.get('MetricName'),
+                    'Dimensions': [dimension],
+                    'Timestamp': ts,
+                    'Value': value,
+                    'Unit': unit,
+                    'StorageResolution': self.storage_resolution,
+                })
 
         md.append({
             'MetricName': kwargs.get('MetricName'),

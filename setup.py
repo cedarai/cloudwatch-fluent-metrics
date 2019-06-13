@@ -14,7 +14,7 @@ setup(
   name='cloudwatch-fluent-metrics',
   packages=setuptools.find_packages(),
   install_requires=install_requires,
-  version='0.4.3',
+  version='0.4.4',
   description='AWS CloudWatch Fluent Metrics',
   long_description=read('README.md'),
   author='troylar',
