@@ -6,11 +6,15 @@ from distutils.core import setup
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+with open('requirements.txt') as install_requires_file:
+    install_requires = install_requires_file.read().splitlines()
+
 
 setup(
   name='cloudwatch-fluent-metrics',
   packages=setuptools.find_packages(),
-  version='0.4.0',
+  install_requires=install_requires,
+  version='0.4.3',
   description='AWS CloudWatch Fluent Metrics',
   long_description=read('README.md'),
   author='troylar',

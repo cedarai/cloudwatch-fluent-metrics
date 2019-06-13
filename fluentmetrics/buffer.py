@@ -71,7 +71,8 @@ class BufferedFluentMetric(FluentMetric):
             if send_partial:
                 # ship remaining items
                 page = buffer[start:end]
-                FluentMetric._record_metric(self, page)
+                if page:
+                    FluentMetric._record_metric(self, page)
 
                 # clear buffer
                 self.buffers[namespace] = []

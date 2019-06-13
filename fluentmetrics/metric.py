@@ -32,12 +32,10 @@ class Timer(object):
 
 class FluentMetric(object):
     def __init__(self, client=None, **kwargs):
-        self.stream_id = str(uuid.uuid4())
         self.dimensions = []
         self.timers = {}
         self.dimension_stack = []
         self.storage_resolution = 60
-        self.with_dimension('MetricStreamId', self.stream_id)
 
         if client:
             self.client = client
@@ -51,11 +49,6 @@ class FluentMetric(object):
 
     def with_storage_resolution(self, value):
         self.storage_resolution = value
-        return self
-
-    def with_stream_id(self, id):
-        self.stream_id = id
-        self.with_dimension('MetricStreamId', self.stream_id)
         return self
 
     def with_namespace(self, namespace):
@@ -106,7 +99,6 @@ class FluentMetric(object):
     def push_dimensions(self):
         self.dimension_stack.append(self.dimensions)
         self.dimensions = []
-        self.with_stream_id(self.stream_id)
         return self
 
     def pop_dimensions(self):
